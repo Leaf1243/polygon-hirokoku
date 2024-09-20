@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正n角形表示</title>
+    <style>
+        .polygon {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+        .polygon svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <label for="sides">辺の数を入力してください:</label>
+    <input type="number" id="sides" name="sides" min="3" value="6">
+    <button onclick="drawPolygon()">描画</button>
+    <div class="polygon" id="polygonContainer"></div>
+
+    <script>
+        function drawPolygon() {
+            const sides = document.getElementById('sides').value;
+            const container = document.getElementById('polygonContainer');
+            const radius = 100;
+            const angle = 2 * Math.PI / sides;
+            let points = '';
+
+            for (let i = 0; i < sides; i++) {
+                const x = radius + radius * Math.cos(i * angle);
+                const y = radius + radius * Math.sin(i * angle);
+                points += `${x},${y} `;
+            }
+
+            container.innerHTML = `
+                <svg viewBox="0 0 200 200">
+                    <polygon points="${points}" fill="#64C7CC" stroke="#333" stroke-width="2"/>
+                </svg>
+            `;
+        }
+
+        // 初期描画
+        drawPolygon();
+    </script>
+</body>
+</html>
